@@ -1,0 +1,123 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model asistencia {
+  id_asistencia Int      @id @default(autoincrement())
+  id_usuario    Int
+  fecha         DateTime @db.Date
+  hora_entrada  DateTime @db.Time(0)
+  hora_salida   DateTime @db.Time(0)
+  usuarios      usuarios @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "asistencia_fk_usuario")
+
+  @@index([id_usuario], map: "id_usuario")
+}
+
+model comunidades {
+  id_comunidad       Int                  @id @default(autoincrement())
+  admin              Int                  @default(0)
+  nombre             String               @db.VarChar(50)
+  descripcion        String               @db.VarChar(150)
+  fecha_creacion     DateTime             @db.Date
+  usuarios           usuarios             @relation(fields: [admin], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "comunidad_fk_adminUser")
+  mensajes           mensajes[]
+  miembrocomunidades miembrocomunidades[]
+
+  @@index([admin], map: "admin")
+}
+
+model estadomembresias {
+  id_estado  Int          @id @default(autoincrement())
+  estado     String       @db.VarChar(15)
+  membresias membresias[]
+}
+
+model estadousuarios {
+  id_estado Int        @id @default(autoincrement())
+  estado    String     @db.VarChar(15)
+  usuarios  usuarios[]
+}
+
+model membresias {
+  id_membresia     Int              @id @default(autoincrement())
+  tipo_membresia   Int
+  id_usuario       Int
+  fecha_inicio     DateTime         @db.Date
+  proximo_pago     DateTime?        @db.Date
+  estado           Int
+  estadomembresias estadomembresias @relation(fields: [estado], references: [id_estado], onDelete: NoAction, onUpdate: NoAction, map: "membresia_fk_estado")
+  tipomembresias   tipomembresias   @relation(fields: [tipo_membresia], references: [id_tipo_membresia], onDelete: NoAction, onUpdate: NoAction, map: "membresia_fk_tipoMembresia")
+  usuarios         usuarios         @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "membresia_fk_usuario")
+
+  @@index([estado], map: "estado")
+  @@index([id_usuario], map: "id_usuario")
+  @@index([tipo_membresia], map: "tipo_membresia")
+}
+
+model mensajes {
+  id_mensaje   Int         @id @default(autoincrement())
+  id_comunidad Int
+  id_usuario   Int
+  contenido    String      @db.VarChar(1000)
+  fecha_envio  DateTime    @db.Date
+  comunidades  comunidades @relation(fields: [id_comunidad], references: [id_comunidad], onDelete: NoAction, onUpdate: NoAction, map: "mensaje_fk_comunidad")
+  usuarios     usuarios    @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "mensaje_fk_usuario")
+
+  @@index([id_comunidad], map: "id_comunidad")
+  @@index([id_usuario], map: "id_usuario")
+}
+
+model miembrocomunidades {
+  id_miembro   Int         @id @default(autoincrement())
+  id_comunidad Int
+  id_usuario   Int
+  fecha_union  DateTime    @db.Date
+  comunidades  comunidades @relation(fields: [id_comunidad], references: [id_comunidad], onDelete: NoAction, onUpdate: NoAction, map: "miembro_fk_comunidad")
+  usuarios     usuarios    @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "miembro_fk_usuario")
+
+  @@index([id_comunidad], map: "id_comunidad")
+  @@index([id_usuario], map: "id_usuario")
+}
+
+model tipomembresias {
+  id_tipo_membresia Int          @id @default(autoincrement())
+  tipo_membresia    String       @db.VarChar(25)
+  costo             Float        @db.Float
+  membresias        membresias[]
+}
+
+model tipousuarios {
+  id_tipo_usuario Int        @id @default(autoincrement())
+  tipo_usuario    String     @db.VarChar(25)
+  usuarios        usuarios[]
+}
+
+model usuarios {
+  id_usuario         Int                  @id @default(autoincrement())
+  tipo_usuario       Int
+  nombre             String               @db.VarChar(25)
+  apellido           String               @db.VarChar(50)
+  direccion          String               @db.VarChar(50)
+  telefono           String?              @db.VarChar(25)
+  email              String?              @db.VarChar(50)
+  fecha_nacimiento   DateTime             @db.Date
+  usuario            String               @db.VarChar(25)
+  contrasena         String               @db.VarChar(25)
+  fecha_registro     DateTime             @db.Date
+  estado             Int
+  asistencia         asistencia[]
+  comunidades        comunidades[]
+  membresias         membresias[]
+  mensajes           mensajes[]
+  miembrocomunidades miembrocomunidades[]
+  estadousuarios     estadousuarios       @relation(fields: [estado], references: [id_estado], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_fk_estosUsuarios")
+  tipousuarios       tipousuarios         @relation(fields: [tipo_usuario], references: [id_tipo_usuario], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_fk_tipousuarios")
+
+  @@index([estado], map: "estado")
+  @@index([tipo_usuario], map: "tipo_usuario")
+}
