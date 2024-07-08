@@ -104,10 +104,10 @@ model usuarios {
   apellido           String               @db.VarChar(50)
   direccion          String               @db.VarChar(50)
   telefono           String?              @db.VarChar(25)
-  email              String?              @db.VarChar(50)
+  email              String?              @db.VarChar(50) @unique
   fecha_nacimiento   DateTime             @db.Date
-  usuario            String               @db.VarChar(25)
-  contrasena         String               @db.VarChar(25)
+  usuario            String               @db.VarChar(25) @unique
+  contrasena         String               @db.VarChar(250)
   fecha_registro     DateTime             @db.Date
   estado             Int
   asistencia         asistencia[]

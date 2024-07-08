@@ -13,6 +13,7 @@ import v1Auth from "./v1/routes/auth/auth.routes.js"
 dotenv.config();
 
 const app = express();  // inicializando express
+// app.disable('x-powered-by') // deshabilita el header que indica el X-Powered-By: Express en una pelicion
 const PORT = process.env.PORT ?? 4000;  // variable puerto
 
 //config midelwares

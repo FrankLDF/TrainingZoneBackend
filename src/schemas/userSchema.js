@@ -26,11 +26,15 @@ const userSchema = z.object({
   contrasena: z
     .string()
     .min(6, "Contraseña debe tener al menos 6 caracteres")
-    .max(25, "Contraseña debe tener un máximo de 25 caracteres"),
+    .max(250, "Contraseña debe tener un máximo de 250 caracteres"),
   fecha_registro: z
     .string()
     .refine((val) => !isNaN(Date.parse(val)), "Fecha de registro inválida"),
   estado: z.number().int(),
 });
 
-export { userSchema };
+export const validateUser = input => {
+  return userSchema.safeParse(input)
+}
+
+// export { userSchema };
