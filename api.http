@@ -2,7 +2,7 @@
 GET http://localhost:4000/v1/user
 
 ### endpoint para registrar usuarios
-POST http://localhost:4000/v1/user
+POST http://localhost:5000/v1/user
 Content-Type: application/json
 
 {
@@ -17,4 +17,13 @@ Content-Type: application/json
   "contrasena": "securepassword",
   "fecha_registro": "2023-07-07T00:00:00.000Z",
   "estado": 1
+}
+
+### endpoint para loguear usuarios
+POST http://localhost:5000/v1/auth/login
+Content-Type: application/json
+
+{
+  "usuario": "juanperez",
+  "contrasena": "securepassword"
 }
