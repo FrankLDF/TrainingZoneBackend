@@ -32,8 +32,8 @@ app.use(cookieParser())
 // estableciendo las rutas disponibles en los distintos enpoint
 app.use("/v1/auth", v1Auth);
 app.use("/v1/users", authMiddleware, v1Users);
-app.use("/v1/memberships", v1Membership);   // * agregar midleware de autenticacion de session*
-app.use("/v1/attendances", v1Attendence);   // * agregar midleware de autenticacion de session*
+app.use("/v1/memberships", authMiddleware, v1Membership);   
+app.use("/v1/attendances", authMiddleware, v1Attendence);   
 app.use("/v1/communitys", authMiddleware, v1Community);
 
 

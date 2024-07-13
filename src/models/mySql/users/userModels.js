@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+// funcion modelo que crea registro de usuarios (admin)
 export const insertNewUser = async (dataUser) => {
     
     try {
@@ -34,4 +35,15 @@ export const insertNewUser = async (dataUser) => {
 
     
     }
+};
+
+// funcion modelo que obtiene todos los usuarios
+export const getAllUsers = async () => {
+  try {
+    const users = await prisma.usuarios.findMany();
+    return { success: true, users };
+  } catch (error) {
+    console.error("Error al obtener todos los usuarios:", error);
+    return { success: false, message: "Error al obtener todos los usuarios" };
+  }
 };

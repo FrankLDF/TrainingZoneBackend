@@ -19,6 +19,10 @@ Content-Type: application/json
   "estado": 1
 }
 
+
+### para obtener todos los usuarios
+GET http://localhost:5000/v1/users
+
 ### endpoint para loguear usuarios
 POST http://localhost:5000/v1/auth/login
 Content-Type: application/json
@@ -61,3 +65,5 @@ Content-Type: application/json
 
 ### para ver la membresia de un usuario
 GET http://localhost:5000/v1/memberships/1
+
+
