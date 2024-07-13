@@ -13,6 +13,7 @@ import v1Users from "./v1/routes/users/users.routes.js";
 import v1Community from "./v1/routes/communities/community.routes.js"
 import v1Auth from "./v1/routes/auth/auth.routes.js"
 import v1Attendence from "./v1/routes/attendence/attendence.routes.js"
+import v1Membership from "./v1/routes/membership/membership.routes.js"
 
 // configurando dotenv para poder usar variables de entorno
 dotenv.config();
@@ -30,10 +31,10 @@ app.use(cookieParser())
 
 // estableciendo las rutas disponibles en los distintos enpoint
 app.use("/v1/auth", v1Auth);
-app.use("/v1/user", authMiddleware, v1Users);
-app.use("/v1/membership", authMiddleware, v1Users);
-app.use("/v1/attendance", v1Attendence);
-app.use("/v1/community", authMiddleware, v1Community);
+app.use("/v1/users", authMiddleware, v1Users);
+app.use("/v1/memberships", v1Membership);   // * agregar midleware de autenticacion de session*
+app.use("/v1/attendances", v1Attendence);   // * agregar midleware de autenticacion de session*
+app.use("/v1/communitys", authMiddleware, v1Community);
 
 
 

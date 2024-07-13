@@ -1,8 +1,8 @@
 ### provar api
-GET http://localhost:4000/v1/user
+GET http://localhost:4000/v1/users
 
 ### endpoint para registrar usuarios
-POST http://localhost:5000/v1/user
+POST http://localhost:5000/v1/users
 Content-Type: application/json
 
 {
@@ -30,7 +30,7 @@ Content-Type: application/json
 
 
 ### para crear una asistencia
-POST http://localhost:5000/v1/attendance/
+POST http://localhost:5000/v1/attendances/
 Content-Type: application/json
 
 {
@@ -41,7 +41,23 @@ Content-Type: application/json
 }
 
 ### obtener todas las asistencias
-GET http://localhost:5000/v1/attendance/
+GET http://localhost:5000/v1/attendances/
 
 ### obtener todas las asistencias de un usuario
-GET http://localhost:5000/v1/attendance/1
+GET http://localhost:5000/v1/attendances/1
+
+
+### para registrar membresias
+POST http://localhost:5000/v1/memberships/
+Content-Type: application/json
+
+{
+  "tipo_membresia": 1,
+  "id_usuario": 1,
+  "fecha_inicio": "2024-07-13T00:00:00.000Z",
+  "proximo_pago": "2024-08-13T00:00:00.000Z",
+  "estado": 1
+}
+
+### para ver la membresia de un usuario
+GET http://localhost:5000/v1/memberships/1

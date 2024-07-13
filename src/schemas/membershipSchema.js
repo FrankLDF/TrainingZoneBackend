@@ -16,4 +16,8 @@ const membershipSchema = z.object({
   estado: z.number().int(),
 });
 
-export { membershipSchema };
+const validateMembership = input => {
+  return membershipSchema.safeParse(input)
+}
+
+export { validateMembership };
