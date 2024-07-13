@@ -32,7 +32,7 @@ app.use(cookieParser())
 app.use("/v1/auth", v1Auth);
 app.use("/v1/user", authMiddleware, v1Users);
 app.use("/v1/membership", authMiddleware, v1Users);
-app.use("/v1/attendance", authMiddleware, v1Attendence);
+app.use("/v1/attendance", v1Attendence);
 app.use("/v1/community", authMiddleware, v1Community);
 
 

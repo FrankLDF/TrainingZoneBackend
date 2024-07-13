@@ -27,3 +27,21 @@ Content-Type: application/json
   "usuario": "juanperez",
   "contrasena": "securepassword"
 }
+
+
+### para crear una asistencia
+POST http://localhost:5000/v1/attendance/
+Content-Type: application/json
+
+{
+  "id_usuario": 1,
+  "fecha": "2024-07-12",
+  "hora_entrada": "2024-07-12 15:30:00",
+  "hora_salida": "2024-07-12 16:30:00"
+}
+
+### obtener todas las asistencias
+GET http://localhost:5000/v1/attendance/
+
+### obtener todas las asistencias de un usuario
+GET http://localhost:5000/v1/attendance/1
